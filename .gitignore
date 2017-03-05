@@ -1,4 +1,5 @@
-OCR.js
+keys.js
+.DS_Store
 .idea/
 ios/build/
 node_modules/
