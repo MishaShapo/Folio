@@ -39,6 +39,10 @@ class App extends Component {
 
   }
 
+  componenetWillMount() {
+    firebase.initializeApp(firebaseAPIKey());
+  }
+
   render2() {
     console.log('rendering app : ', this.state.loaded);
     if(this.state.loaded){

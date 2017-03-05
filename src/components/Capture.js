@@ -8,6 +8,7 @@ import {
   View
 } from 'react-native';
 import { connect } from 'react-redux';
+import firebase from 'firebase';
 import Camera from 'react-native-camera';
 
 class Capture extends Component{
@@ -28,7 +29,9 @@ class Capture extends Component{
 
   takePicture() {
     this.camera.capture()
-      .then((data) => console.log(data))
+      .then((data) => {firebase.storage().ref().putString(data, 'base64').then(function(snapshot) {
+        console.log('Uploaded a base64 string!');
+      });})
       .catch(err => console.error(err));
   }
 }
