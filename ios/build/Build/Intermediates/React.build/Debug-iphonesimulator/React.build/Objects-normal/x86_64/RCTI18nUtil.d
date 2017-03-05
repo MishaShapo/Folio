@@ -1,0 +1,3 @@
+dependencies: \
+  /Users/copperstick6/Documents/Github/Folio/node_modules/react-native/React/Modules/RCTI18nUtil.m \
+  /Users/copperstick6/Documents/Github/Folio/node_modules/react-native/React/Modules/RCTI18nUtil.h
