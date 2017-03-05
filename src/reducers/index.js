@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import HomeReducer from './HomeReducer';
-//import PetReducer from './CaptureReducer';
+import CardListReducer from './CardListReducer';
+import CardReducer from './CardReducer';
 //import BackpackReducer from './BackpackReducer';
 
 export default combineReducers({
-  home: HomeReducer
-//  individualCard: IndividualCardReducer,
+  cardList: CardListReducer,
+  card: CardReducer
 //  capture: CaptureReducer,
 });

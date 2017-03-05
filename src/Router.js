@@ -14,14 +14,16 @@ import IndividualCard from './components/IndividualCard';
   - view individual cards
   - capture with camera
 */
-
+//transitions between three defined screens
 class RouterComponent extends Component {
 
+  //initializes this navigator
   constructor(props) {
     super(props);
     this.configureScene = this.configureScene.bind(this);
   }
 
+  //initializes scene transitions
   configureScene(route, routeStack){
     if(route.title == "Capture") {
       return {
@@ -59,6 +61,7 @@ class RouterComponent extends Component {
     };
   }
 
+  //conditinally renders main scenes onto screen
   render() {
     const routes = [
       {title: "Capture"},

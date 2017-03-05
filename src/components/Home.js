@@ -6,6 +6,7 @@ class Home extends Component{
   render(){
     const {textStyle, bgStyle} = styles;
     return(
+      //this stuff is JSX
       <View style={bgStyle}>
           <Text style={textStyle}>This is the home page.</Text>
       </View>
