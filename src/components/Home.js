@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 
+import CardList from './CardList';
+
 class Home extends Component{
   render(){
     const {textStyle, bgStyle} = styles;
     return(
-      //this stuff is JSX
       <View style={bgStyle}>
-          <Text style={textStyle}>This is the home page.</Text>
+          <CardList navigator = {this.props.navigator} transitionCB = {this.props.transitionCB}/>
       </View>
     );
   }

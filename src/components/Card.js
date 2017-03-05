@@ -2,34 +2,19 @@ import React, { Component, PropTypes } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
-class CardListItem extends Component{
+class Card extends Component{
 
 
   render(){
     const {textStyle, bgStyle} = styles;
     return(
-      <TouchableOpacity onPress = {() => {
-        this.props.transitionCB(this.props.item[0]);
-        console.log('rowData: ', this.props.item[0]);
-        this.props.navigator.jumpForward();
-      }}>
         <View style={styles.containerStyle}>
-          <Text style={{marginTop:55}}>{this.props.item[1].name}</Text>
+          {this.props.children}
         </View>
-      </TouchableOpacity>
     );
   }
 }
-/*CardListItem.propTypes = {
-  name: PropTypes.string.isRequired,
-  contact: PropTypes.shape({
-    phone: PropTypes.string,
-    email: PropTypes.string,
-    address: PropTypes.string
-  }),
-  notes: PropTypes.string.isRequired
-}
-*/
+
 
 const styles = {
   containerStyle: {
@@ -47,4 +32,4 @@ const styles = {
   }
 }
 
-export default CardListItem;
+export default Card;

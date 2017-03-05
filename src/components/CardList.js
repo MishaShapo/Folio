@@ -1,21 +1,29 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, ListView} from 'react-native';
 import { connect } from 'react-redux';
 
+import CardListItem from './CardListItem';
+
 class CardList extends Component {
-  constructor() {
-    super();
-    
+  constructor(props) {
+    super(props);
+    console.log(this.props.cardList);
+    this.renderRow = this.renderRow.bind(this);
   }
 
   render() {
     return(
       <ListView
         dataSource = {this.props.cardList}
-        renderRow = {(rowData => <CardListItem item = {rowData} />}
+        renderRow = {this.renderRow}
       />
     );
   }
+
+  renderRow(rowData) {
+    return <CardListItem item = {rowData} navigator = {this.props.navigator} transitionCB = {this.props.transitionCB}/>;
+  }
+
 }
 
 const styles = {
@@ -35,7 +43,8 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-  return {cardList: Object.entries(state.cardList.cardList)};
+  const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+  return {cardList: ds.cloneWithRows(Object.entries(state.cardList.cardList))};
 };
 
 export default connect(mapStateToProps)(CardList);

@@ -2,6 +2,7 @@ import {
   ADD_FIELD,
   EDIT_FIELD,
   DELETE_FIELD,
+  CHOOSE_CARD
 } from './types';
 
 export const addField = (field) => {
@@ -22,5 +23,12 @@ export const deleteField = (field) => {
   return {
     type: DELETE_FIELD,
     payload: field
+  }
+}
+
+export const chooseCard = (card) => {
+  return {
+    type: CHOOSE_CARD,
+    payload: card
   }
 }

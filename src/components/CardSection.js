@@ -1,11 +1,19 @@
-import React from 'react';
-import {View} from 'react-native';
+import React, { Component } from 'react';
+import {View, Text} from 'react-native';
 
-const CardSection = (props) => {
-  <View style = {[styles.containerStyle, props.style]}>
-    {props.children}
-  </View>
-};
+class CardSection extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <View style = {styles.containerStyle}>
+        {this.props.children}
+      </View>
+    );
+  }
+}
 
 const styles = {
   containerStyle: {
@@ -19,4 +27,4 @@ const styles = {
   }
 };
 
-export { CardSection };
+export default CardSection;

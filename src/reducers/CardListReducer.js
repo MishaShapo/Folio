@@ -1,18 +1,18 @@
 import {
   ADD_CARD,
   DELETE_CARD
-} from './types';
+} from './../actions/types';
 
 
 const INITIAL_STATE = {
   cardList: {
     0:{
-      name: 'John',
+      name: 'Bob',
       contact:{
-        email: 'hello@mail.com',
+        email: 'blah@gmail.com',
         phone: '',
         address: ''
-      }, 
+      },
       notes: ''
     },
     1:{
@@ -22,41 +22,46 @@ const INITIAL_STATE = {
         phone: '123456789',
         address: ''
       },
-      notes: ''},
+      notes: 'Very nice and friendly.'
+    },
     2:{
-      name: 'Emily',
+      name: 'James',
       contact:{
         email: 'emily@mail.com',
         phone: '123456789',
         address: ''
-      }, 
+      },
       notes: ''
     },
     3:{
-      name: 'Emily',
+      name: 'Lily',
       contact:{
         email: 'emily@mail.com',
         phone: '123456789',
         address: ''
-      }, 
+      },
       notes: ''
     },
   },
-  numCards: 0
+  numCards: 4
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case: ADD_CARD:
+    case ADD_CARD:{
+      console.log("numCards before: ", numCards);
       const newState = {...state};
-      newState.cardList[newState.numCards] = {};
+      newState.cardList[newState.numCards] = action.payload;
       newState.numCards++;
+      console.log("numCards after: ", numCards);
       return newState;
-    case: DELETE_CARD:
+    }
+    case DELETE_CARD: {
       const {key} = action.payload;
       const newState = {...state};
       delete newState.cardList[key];
       return newState;
+    }
     default:
       return state;
   }

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Navigator, Image, TouchableOpacity, Text, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-//import {  } from './actions';
+import {bindActionCreators} from 'redux';
+
+import { addCard } from './actions';
 
 
 import Home from './components/Home';
 import Capture from './components/Capture';
 import IndividualCard from './components/IndividualCard';
-
 
 /*Views
   - home, list of cards with search
@@ -21,6 +22,13 @@ class RouterComponent extends Component {
   constructor(props) {
     super(props);
     this.configureScene = this.configureScene.bind(this);
+    this.state = {cardkey: 0};
+  }
+
+  addNewCard() {
+    console.log("calling addCard in Router");
+    console.log("numCards: ", this.props.numCards);
+    this.props.addCard({name: '', contact: {email: '', address: '', phone: ''}, notes: ''});
   }
 
   //initializes scene transitions
@@ -77,11 +85,11 @@ class RouterComponent extends Component {
         renderScene={(route, navigator) => {
           switch (route.title) {
             case "Home":
-              return <Home />;
+              return <Home navigator = {navigator} transitionCB = {this.transitionCB}/>;
             case "Capture":
               return <Capture />;
             case "IndividualCard":
-              return <IndividualCard />;
+              return <IndividualCard cardkey = {this.state.cardkey}/>;
           }
         }}
         configureScene={this.configureScene}
@@ -126,10 +134,15 @@ class RouterComponent extends Component {
                     case "Home":
                       return (
                         <TouchableOpacity onPress={() => {
+                          this.setState({cardkey: this.props.numCards});
+                          this.addNewCard.bind(this);
+                          this.addNewCard();
+                          console.log('pressed indiv card icon!');
+                          console.log('numCards: ', this.props.numCards);
+                          console.log('cardkey:', this.props.cardkey);
                           if(navigator.state.presentedIndex == 1){
                             navigator.jumpForward();
                           }
-
                         }}>
                           <Image
                             source={require('../assets/icons/individual_card_icon.png')}
@@ -166,6 +179,10 @@ class RouterComponent extends Component {
       />
     );
   }
+
+  transitionCB = (cardkey) => {
+    this.setState({cardkey});
+  }
 }
 
 const styles = {
@@ -192,8 +209,14 @@ const styles = {
 }
 
 const mapStateToProps = state => {
-  //TODO
-  return {};
+//    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+//    return {cardList: ds.cloneWithRows(Object.entries(state.cardList.cardList))};
+  return {numCards: state.cardList.numCards};
 };
 
-export default connect(mapStateToProps)(RouterComponent);
+function mapDispatchToProps(dispatch) {
+  let actions = bindActionCreators({ addCard });
+  return { ...actions, dispatch };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RouterComponent);
