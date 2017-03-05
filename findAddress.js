@@ -1,3 +1,6 @@
+//makes the API calls and checks if it is a street address
+//if it is a street address, return the full address to add to a field
+//otherwise, just return an empty string
 function findAddress(add){
   var address = String(add);
   var request = require('request');
