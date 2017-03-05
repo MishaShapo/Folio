@@ -1,30 +1,57 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import {
+  AppRegistry,
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View
+} from 'react-native';
 import { connect } from 'react-redux';
+import Camera from 'react-native-camera';
 
 class Capture extends Component{
   render(){
-    const {textStyle, bgStyle} = styles;
-    return(
-      <View style={bgStyle}>
-          <Text style={textStyle}>This is the capture page.</Text>
+    return (
+      <View style={styles.container}>
+        <Camera
+          ref={(cam) => {
+            this.camera = cam;
+          }}
+          style={styles.preview}
+          aspect={Camera.constants.Aspect.fill}>
+          <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
+        </Camera>
       </View>
     );
   }
-}
 
-const styles = {
-  textStyle: {
-    fontSize: 18,
-    color: "white"
-  },
-  bgStyle: {
-    backgroundColor: "#7a2c2c",
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-    position: 'relative'
+  takePicture() {
+    this.camera.capture()
+      .then((data) => console.log(data))
+      .catch(err => console.error(err));
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  preview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width
+  },
+  capture: {
+    flex: 0,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    color: '#000',
+    padding: 10,
+    margin: 40
+  }
+});
 
 export default connect()(Capture);
